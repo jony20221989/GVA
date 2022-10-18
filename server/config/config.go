@@ -42,6 +42,15 @@ type Mysql struct {
 	LogMode      string `mapstructure:"log-mode" json:"log-mode" yaml:"log-mode"`                   // 是否开启Gorm全局日志
 	LogZap       bool   `mapstructure:"log-zap" json:"log-zap" yaml:"log-zap"`                      // 是否通过zap写入日志文件
 }
+
+func (m *Mysql) Dsn() string {
+	return m.Username + ":" + m.Password + "@tcp(" + m.Path + ":" + m.Port + ")/" + m.Dbname + "?" + m.Config
+}
+
+func (m *Mysql) GetLogMode() string {
+	return m.LogMode
+}
+
 type Redis struct {
 	DB       int    `mapstructure:"db" json:"db" yaml:"db"`                   // redis的哪个数据库
 	Addr     string `mapstructure:"addr" json:"addr" yaml:"addr"`             // 服务器地址:端口
