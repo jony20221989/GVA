@@ -1,0 +1,55 @@
+# 开发环境配置
+server:
+  port: 8765
+  use-multipoint: true
+  iplimit-count: 15000
+  iplimit-time: 3600
+
+aliyun-oss:
+  endpoint: yourEndpoint
+  access-key-id: yourAccessKeyId
+  access-key-secret: yourAccessKeySecret
+  bucket-name: yourBucketName
+  bucket-url: yourBucketUrl
+  base-path: yourBasePath
+
+captcha:
+  key-long: 4
+  img-width: 240
+  img-height: 80
+
+
+mysql:
+  path: 192.168.88.128
+  port: "3306"
+  config: charset=utf8mb4&parseTime=True&loc=Local
+  db-name:
+  username: root
+  password: "123456"
+  max-idle-conns: 10
+  max-open-conns: 100
+  log-mode: error
+  log-zap: false
+
+redis:
+  db: 2
+  addr: 192.168.88.128:6379
+  password: "123456"
+
+jwt:
+  signing-key: 40108409-8994-450e-a544-09e366331197
+  expires-time: 7d
+  buffer-time: 1d
+  issuer: qmPlus
+
+zap:
+  level: info
+  prefix: ""
+  format: console
+  director: log
+  encode-level: LowercaseColorLevelEncoder
+  stacktrace-key: stacktrace
+  max-age: 0
+  show-line: true
+  log-in-console: true
+
