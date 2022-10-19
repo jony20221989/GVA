@@ -1,11 +1,10 @@
 package initialize
 
 import (
-	"context"
 	"go.uber.org/zap"
-	"server/config"
 	"server/global"
 	"server/model/entity"
+	"server/utils"
 )
 
 func InitBlackList() {
@@ -17,7 +16,10 @@ func InitBlackList() {
 	}
 
 	for i := 0; i < len(data); i++ {
-		global.REDIS.SAdd(context.Background(), config.BLACKLIST_KEY, data[i])
+		err := utils.RedisSetBlank(data[i])
+		if err != nil {
+			return
+		}
 	} // jwt黑名单 加入 Redis  中
 
 }

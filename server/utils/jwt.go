@@ -2,7 +2,7 @@ package utils
 
 import (
 	"errors"
-	jwt "github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt/v4"
 	"server/global"
 	"server/model/request"
 	"time"
@@ -20,9 +20,7 @@ var (
 )
 
 func NewJWT() *JWT {
-	return &JWT{
-		[]byte(global.CONFIG.JWT.SigningKey),
-	}
+	return &JWT{[]byte(global.CONFIG.JWT.SigningKey)}
 }
 
 func (j *JWT) CreateClaims(baseClaims request.BaseClaims) request.CustomClaims {

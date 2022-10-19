@@ -36,6 +36,7 @@ func (b *UserApi) Login(c *gin.Context) {
 		response.FailWithMessage("用户被禁止登录", c)
 		return
 	}
-	b.TokenNext(c, *user)
+	jwtApi := ApiGroupApp.JwtApi
+	jwtApi.CreateToken(c, *user)
 	return
 }
