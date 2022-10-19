@@ -15,10 +15,10 @@ jwt:
     buffer-time: 1d
     issuer: qmPlus
 mysql:
-    path: 192.168.88.128
-    port: "3306"
+    path: 10.3.1.11
+    port: "30306"
     config: charset=utf8mb4&parseTime=True&loc=Local
-    db-name: gva
+    db-name:
     username: root
     password: "123456"
     max-idle-conns: 10
@@ -27,7 +27,7 @@ mysql:
     log-zap: false
 redis:
     db: 2
-    addr: 192.168.88.128:6379
+    addr: 10.3.1.11:30379
     password: "123456"
 server:
     port: 8765

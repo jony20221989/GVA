@@ -10,7 +10,7 @@ import (
 
 type DBApi struct{}
 
-func (i *DBApi) InitDB(c *gin.Context) {
+func (i *DBApi) Init(c *gin.Context) {
 	if global.DB != nil {
 		global.LOG.Error("已存在数据库配置!")
 		response.FailWithMessage("已存在数据库配置", c)
@@ -30,7 +30,7 @@ func (i *DBApi) InitDB(c *gin.Context) {
 	response.OkWithMessage("自动创建数据库成功", c)
 }
 
-func (i *DBApi) CheckDB(c *gin.Context) {
+func (i *DBApi) Check(c *gin.Context) {
 	var (
 		message  = "前往初始化数据库"
 		needInit = true

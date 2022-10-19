@@ -9,15 +9,16 @@ import (
 	"server/model/entity"
 )
 
-func InitDB() *gorm.DB {
+// InitDBConn 数据库连接
+func InitDBConn() *gorm.DB {
 	m := global.CONFIG.Mysql
 	if m.Dbname == "" {
 		return nil
 	}
 	mysqlConfig := mysql.Config{
-		DSN:                       m.Username + ":" + m.Password + "@tcp(" + m.Path + ":" + m.Port + ")/" + m.Dbname + "?" + m.Config, // DSN data source name
-		DefaultStringSize:         191,                                                                                                // string 类型字段的默认长度
-		SkipInitializeWithVersion: false,                                                                                              // 根据版本自动配置
+		DSN:                       m.Dsn(),
+		DefaultStringSize:         191,   // string 类型字段的默认长度
+		SkipInitializeWithVersion: false, // 根据版本自动配置
 	}
 	if db, err := gorm.Open(mysql.New(mysqlConfig), &gorm.Config{}); err != nil {
 		return nil
@@ -29,7 +30,8 @@ func InitDB() *gorm.DB {
 	}
 }
 
-func RegisterTables(db *gorm.DB) {
+// AutoMigrate 数据库迁移
+func AutoMigrate(db *gorm.DB) {
 	err := db.AutoMigrate(entity.SysUser{})
 	if err != nil {
 		global.LOG.Error("register table failed", zap.Error(err))

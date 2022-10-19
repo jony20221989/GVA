@@ -17,10 +17,11 @@ func main() {
 	initialize.InitJwt()
 	//初始化缓存
 	global.REDIS = initialize.InitRedis()
-	//初始化数据库  如果没配置或者没初始化 返回nil
-	global.DB = initialize.InitDB()
+	//初始化数据库连接  如果没配置或者没初始化 返回nil
+	global.DB = initialize.InitDBConn()
 	if global.DB != nil {
-		initialize.RegisterTables(global.DB)
+		//数据库版本迁移
+		initialize.AutoMigrate(global.DB)
 		db, _ := global.DB.DB()
 		// 程序结束前关闭数据库连接
 		defer db.Close()

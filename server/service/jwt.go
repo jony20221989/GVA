@@ -10,11 +10,6 @@ import (
 
 type JwtService struct{}
 
-//@function: JsonInBlacklist
-//@description: 拉黑jwt
-//@param: jwtList model.JwtBlacklist
-//@return: err error
-
 func (jwtService *JwtService) JsonInBlacklist(jwtList entity.JwtBlacklist) (err error) {
 	err = global.DB.Create(&jwtList).Error
 	if err != nil {
@@ -28,11 +23,7 @@ func (jwtService *JwtService) JsonInBlacklist(jwtList entity.JwtBlacklist) (err 
 	return
 }
 
-//@function: IsBlacklist
-//@description: 判断JWT是否在黑名单内部
-//@param: jwt string
-//@return: bool
-
+// InBlacklist 判断JWT是否在黑名单内部
 func (jwtService *JwtService) InBlacklist(jwt string) bool {
 	//_, ok := global.BlackCache.Get(jwt)
 	err := global.REDIS.Get(context.Background(), jwt).Err()
@@ -45,21 +36,12 @@ func (jwtService *JwtService) InBlacklist(jwt string) bool {
 	// return !isNotFound
 }
 
-//@function: GetRedisJWT
-//@description: 从redis取jwt
-//@param: userName string
-//@return: redisJWT string, err error
-
 func (jwtService *JwtService) GetRedisJWT(userName string) (redisJWT string, err error) {
 	redisJWT, err = global.REDIS.Get(context.Background(), userName).Result()
 	return redisJWT, err
 }
 
-//@function: SetRedisJWT
-//@description: jwt存入redis并设置过期时间
-//@param: jwt string, userName string
-//@return: err error
-
+// SetRedisJWT jwt存入redis并设置过期时间
 func (jwtService *JwtService) SetRedisJWT(userName string, jwt string) (err error) {
 	// 此处过期时间等于jwt过期时间
 	dr, err := utils.ParseDuration(global.CONFIG.JWT.ExpiresTime)
