@@ -7,6 +7,7 @@ var ApiGroupApp = new(ApiGroup)
 type ApiGroup struct {
 	BaseApi
 	DBApi
+	///xxx
 }
 
 var (
