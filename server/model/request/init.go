@@ -6,7 +6,7 @@ import (
 )
 
 type InitDB struct {
-	DBType   string `json:"dbType"`                      // 数据库类型
+	//	DBType   string `json:"dbType"`                      // 数据库类型
 	Host     string `json:"host"`                        // 服务器地址
 	Port     string `json:"port"`                        // 数据库连接端口
 	UserName string `json:"userName" binding:"required"` // 数据库用户名
@@ -17,7 +17,7 @@ type InitDB struct {
 // ToMysqlConfig 转换 config.Mysql
 func (i *InitDB) ToMysqlConfig() config.Mysql {
 	return config.Mysql{
-		Path:         i.Host,
+		Host:         i.Host,
 		Port:         i.Port,
 		Dbname:       i.DBName,
 		Username:     i.UserName,

@@ -31,7 +31,7 @@ type Captcha struct {
 }
 
 type Mysql struct {
-	Path         string `mapstructure:"path" json:"path" yaml:"path"`                               // 服务器地址:端口
+	Host         string `mapstructure:"host" json:"host" yaml:"host"`                               // 服务器地址:端口
 	Port         string `mapstructure:"port" json:"port" yaml:"port"`                               //:端口
 	Config       string `mapstructure:"config" json:"config" yaml:"config"`                         // 高级配置
 	Dbname       string `mapstructure:"db-name" json:"db-name" yaml:"db-name"`                      // 数据库名
@@ -44,7 +44,7 @@ type Mysql struct {
 }
 
 func (m *Mysql) Dsn() string {
-	return m.Username + ":" + m.Password + "@tcp(" + m.Path + ":" + m.Port + ")/" + m.Dbname + "?" + m.Config
+	return m.Username + ":" + m.Password + "@tcp(" + m.Host + ":" + m.Port + ")/" + m.Dbname + "?" + m.Config
 }
 
 func (m *Mysql) GetLogMode() string {
@@ -63,6 +63,7 @@ type JWT struct {
 	BufferTime  string `mapstructure:"buffer-time" json:"buffer-time" yaml:"buffer-time"`    // 缓冲时间
 	Issuer      string `mapstructure:"issuer" json:"issuer" yaml:"issuer"`                   // 签发者
 }
+
 type Zap struct {
 	Level         string `mapstructure:"level" json:"level" yaml:"level"`                            // 级别
 	Prefix        string `mapstructure:"prefix" json:"prefix" yaml:"prefix"`                         // 日志前缀

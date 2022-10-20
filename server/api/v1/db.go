@@ -10,6 +10,22 @@ import (
 
 type DBApi struct{}
 
+// Check 检查数据库是否初始化过
+func (i *DBApi) Check(c *gin.Context) {
+	var (
+		message  = "前往初始化数据库"
+		needInit = true
+	)
+
+	if global.DB != nil {
+		message = "数据库无需初始化"
+		needInit = false
+	}
+	global.LOG.Info(message)
+	response.OkWithDetailed(gin.H{"needInit": needInit}, message, c)
+}
+
+// Init 数据库初始化
 func (i *DBApi) Init(c *gin.Context) {
 	if global.DB != nil {
 		global.LOG.Error("已存在数据库配置!")
@@ -28,18 +44,4 @@ func (i *DBApi) Init(c *gin.Context) {
 		return
 	}
 	response.OkWithMessage("自动创建数据库成功", c)
-}
-
-func (i *DBApi) Check(c *gin.Context) {
-	var (
-		message  = "前往初始化数据库"
-		needInit = true
-	)
-
-	if global.DB != nil {
-		message = "数据库无需初始化"
-		needInit = false
-	}
-	global.LOG.Info(message)
-	response.OkWithDetailed(gin.H{"needInit": needInit}, message, c)
 }

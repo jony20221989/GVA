@@ -77,27 +77,10 @@ var (
 )
 
 var (
-	ErrMissingDBContext        = errors.New("missing db in context")
-	ErrMissingDependentContext = errors.New("missing dependent value in context")
-	ErrDBTypeMismatch          = errors.New("db type mismatch")
+	ErrMissingDBContext = errors.New("missing db in context")
+	//	ErrMissingDependentContext = errors.New("missing dependent value in context")
+	ErrDBTypeMismatch = errors.New("db type mismatch")
 )
-
-// RegisterInit 注册要执行的初始化过程，会在 InitDB() 时调用
-func RegisterInit(order int, i SubInitializer) {
-	if initializers == nil {
-		initializers = initSlice{}
-	}
-	if cache == nil {
-		cache = map[string]*orderedInitializer{}
-	}
-	name := i.InitializerName()
-	if _, existed := cache[name]; existed {
-		panic(fmt.Sprintf("Name conflict on %s", name))
-	}
-	ni := orderedInitializer{order, i}
-	initializers = append(initializers, &ni)
-	cache[name] = &ni
-}
 
 type InitDBService struct{}
 
@@ -112,11 +95,13 @@ func (initDBService *InitDBService) InitDB(conf request.InitDB) (err error) {
 	// 若存在多个依赖，可以写为 C=A+B, D=A+B+C, E=A+1;
 	// C必然>A|B，因此在AB之后执行，D必然>A|B|C，因此在ABC后执行，而E只依赖A，顺序与CD无关，因此E与CD哪个先执行并不影响
 	var initHandler TypedDBInitHandler
-	switch conf.DBType {
-	case "mysql":
-		initHandler = NewMysqlInitHandler()
-		ctx = context.WithValue(ctx, "dbtype", "mysql")
-	}
+	//switch conf.DBType {
+	//case "mysql":
+	//
+	//}
+	initHandler = NewMysqlInitHandler()
+	ctx = context.WithValue(ctx, "dbtype", "mysql")
+
 	ctx, err = initHandler.EnsureDB(ctx, &conf)
 	if err != nil {
 		return err
@@ -138,6 +123,23 @@ func (initDBService *InitDBService) InitDB(conf request.InitDB) (err error) {
 	initializers = initSlice{}
 	cache = map[string]*orderedInitializer{}
 	return nil
+}
+
+// RegisterInit 注册要执行的初始化过程，会在 InitDB() 时调用
+func RegisterInit(order int, i SubInitializer) {
+	if initializers == nil {
+		initializers = initSlice{}
+	}
+	if cache == nil {
+		cache = map[string]*orderedInitializer{}
+	}
+	name := i.InitializerName()
+	if _, existed := cache[name]; existed {
+		panic(fmt.Sprintf("Name conflict on %s", name))
+	}
+	ni := orderedInitializer{order, i}
+	initializers = append(initializers, &ni)
+	cache[name] = &ni
 }
 
 type MysqlInitHandler struct{}

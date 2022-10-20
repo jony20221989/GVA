@@ -40,7 +40,7 @@ func (b *JwtApi) CreateToken(c *gin.Context, user entity.SysUser) {
 	}
 	fmt.Println("token:" + token)
 
-	redisJWT, err := utils.RedisGetJWT(user.Username) //jwtService.GetRedisJWT(user.Username)
+	redisJWT, err := utils.RedisGetJWT(user.Username)
 	//key 不存在
 	if err == redis.Nil {
 		//在redis中保存token

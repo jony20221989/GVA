@@ -33,7 +33,8 @@ func RedisCheckBlank(jwt string) (b bool, err error) {
 }
 
 func RedisGetJWT(userName string) (redisJWT string, err error) {
-	redisJWT, err = global.REDIS.Get(context.Background(), userName).Result()
+	//redisJWT, err = global.REDIS.Get(context.Background(), userName).Result()
+	redisJWT, err = global.REDIS.Get(context.Background(), config.ONLINE_KEY+userName).Result()
 	return
 }
 
@@ -44,7 +45,7 @@ func RedisSetJWT(userName string, jwt string) (err error) {
 		return err
 	}
 	timer := dr
-	err = global.REDIS.Set(context.Background(), userName, jwt, timer).Err()
+	err = global.REDIS.Set(context.Background(), config.ONLINE_KEY+userName, jwt, timer).Err()
 	return err
 
 }

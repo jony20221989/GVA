@@ -7,4 +7,5 @@ const (
 
 	CAPTCHA_PREKEY = "CAPTCHA_"
 	BLACKLIST_KEY  = "BLACKLIST"
+	ONLINE_KEY     = "online:token:"
 )
