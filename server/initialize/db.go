@@ -32,7 +32,7 @@ func InitDBConn() *gorm.DB {
 
 // AutoMigrate 数据库迁移
 func AutoMigrate(db *gorm.DB) {
-	err := db.AutoMigrate(entity.SysUser{})
+	err := db.AutoMigrate(entity.SysUser{}, entity.SysAuthority{})
 	if err != nil {
 		global.LOG.Error("register table failed", zap.Error(err))
 		os.Exit(0)

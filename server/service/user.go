@@ -16,7 +16,7 @@ func (userService *UserService) Login(u *entity.SysUser) (userInter *entity.SysU
 	}
 
 	var user entity.SysUser
-	err = global.DB.Where("username = ?", u.Username). /*.Preload("Authorities").Preload("Authority")*/ First(&user).Error
+	err = global.DB.Where("username = ?", u.Username).Preload("Authorities").Preload("Authority").First(&user).Error
 	if err == nil {
 		if ok := utils.BcryptCheck(u.Password, user.Password); !ok {
 			return nil, errors.New("密码错误")
