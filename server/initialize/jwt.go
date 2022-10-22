@@ -10,9 +10,10 @@ func InitJwt() {
 	if err != nil {
 		panic(err)
 	}
-	_, err = utils.ParseDuration(global.CONFIG.JWT.BufferTime)
+	bf, err := utils.ParseDuration(global.CONFIG.JWT.BufferTime)
 	if err != nil {
 		panic(err)
 	}
-	global.LOG.Info(dr)
+	global.LOG.Info("初始化dr:", dr)
+	global.LOG.Info("初始化bf:", bf)
 }

@@ -13,8 +13,9 @@ type Response struct {
 }
 
 const (
-	ERROR   = -1
-	SUCCESS = 0
+	Forbidden = 403
+	ERROR     = -1
+	SUCCESS   = 0
 )
 
 func Result(code int, data interface{}, msg string, c *gin.Context) {
@@ -44,6 +45,10 @@ func OkWithDetailed(data interface{}, message string, c *gin.Context) {
 
 func Fail(c *gin.Context) {
 	Result(ERROR, map[string]interface{}{}, "操作失败", c)
+}
+
+func FailWithForbidden(message string, c *gin.Context) {
+	Result(Forbidden, map[string]interface{}{}, message, c)
 }
 
 func FailWithMessage(message string, c *gin.Context) {

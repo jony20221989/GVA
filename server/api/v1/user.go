@@ -40,3 +40,14 @@ func (b *UserApi) Login(c *gin.Context) {
 	jwtApi.CreateToken(c, *user)
 	return
 }
+
+func (b *UserApi) GetUserInfo(c *gin.Context) {
+	uuid := utils.GetUserUuid(c)
+	ReqUser, err := userService.GetUserInfo(uuid)
+	if err != nil {
+		global.LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+		return
+	}
+	response.OkWithDetailed(gin.H{"userInfo": ReqUser}, "获取成功", c)
+}

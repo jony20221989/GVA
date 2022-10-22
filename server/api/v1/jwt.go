@@ -34,7 +34,7 @@ func (b *JwtApi) CreateToken(c *gin.Context, user entity.SysUser) {
 		response.OkWithDetailed(response.LoginResponse{
 			User:      user,
 			Token:     token,
-			ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
+			ExpiresAt: claims.StandardClaims.ExpiresAt,
 		}, "登录成功", c)
 		return
 	}
@@ -55,7 +55,7 @@ func (b *JwtApi) CreateToken(c *gin.Context, user entity.SysUser) {
 		response.OkWithDetailed(response.LoginResponse{
 			User:      user,
 			Token:     token,
-			ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
+			ExpiresAt: claims.StandardClaims.ExpiresAt,
 		}, "登录成功", c)
 		return
 	}
@@ -81,7 +81,7 @@ func (b *JwtApi) CreateToken(c *gin.Context, user entity.SysUser) {
 	response.OkWithDetailed(response.LoginResponse{
 		User:      user,
 		Token:     token,
-		ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
+		ExpiresAt: claims.StandardClaims.ExpiresAt,
 	}, "登录成功", c)
 
 }

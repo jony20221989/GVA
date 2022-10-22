@@ -5,11 +5,12 @@ import (
 	"go.uber.org/zap"
 	"server/config"
 	"server/global"
+	"time"
 )
 
 func RedisSetBlank(jwt string) (err error) {
 
-	err = global.REDIS.SAdd(context.Background(), config.BLACKLIST_KEY, jwt, 0).Err()
+	err = global.REDIS.SAdd(context.Background(), config.BLACKLIST_KEY, jwt).Err()
 	if err != nil {
 		global.LOG.Error("Redis 黑名单设置错误", zap.Error(err))
 	}
@@ -45,7 +46,7 @@ func RedisSetJWT(userName string, jwt string) (err error) {
 		return err
 	}
 	timer := dr
-	err = global.REDIS.Set(context.Background(), config.ONLINE_KEY+userName, jwt, timer).Err()
+	err = global.REDIS.Set(context.Background(), config.ONLINE_KEY+userName, jwt, timer*time.Second).Err()
 	return err
 
 }

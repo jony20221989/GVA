@@ -12,9 +12,9 @@ func ParseDuration(d string) (time.Duration, error) {
 		return dr, nil
 	}
 	if strings.HasSuffix(d, "d") {
-		h := strings.TrimSuffix(d, "d")
-		hour, _ := strconv.Atoi(h)
-		dr = time.Hour * 24 * time.Duration(hour)
+		day := strings.TrimSuffix(d, "d")
+		d, _ := strconv.Atoi(day)
+		dr = 3600 * 24 * time.Duration(d) * time.Second
 		return dr, nil
 	}
 

@@ -21,7 +21,7 @@ func main() {
 	global.DB = initialize.InitDBConn()
 	if global.DB != nil {
 		//数据库版本迁移
-		initialize.AutoMigrate(global.DB)
+		//	initialize.AutoMigrate(global.DB)
 		db, _ := global.DB.DB()
 		// 程序结束前关闭数据库连接
 		defer db.Close()
