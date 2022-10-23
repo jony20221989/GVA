@@ -1,4 +1,4 @@
-package initialize
+package middleware
 
 import (
 	"server/global"
