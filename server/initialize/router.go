@@ -1,10 +1,11 @@
-package initialize
+package middleware
 
 import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"server/global"
+	"server/middleware"
 	"server/router"
 )
 
@@ -31,11 +32,11 @@ func InitRouters() *gin.Engine {
 		routerGroup.InitDBRouter(PublicGroup)
 	}
 
-	/*PrivateGroup := Router.Group("")
+	PrivateGroup := engine.Group("")
 	PrivateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
 	{
 
-	}*/
+	}
 	global.LOG.Info("router register success")
 	return engine
 }
