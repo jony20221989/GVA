@@ -58,3 +58,10 @@ func FailWithMessage(message string, c *gin.Context) {
 func FailWithDetailed(data interface{}, message string, c *gin.Context) {
 	Result(ERROR, data, message, c)
 }
+
+type PageResult struct {
+	List     interface{} `json:"list"`
+	Total    int64       `json:"total"`
+	PageNum  int         `json:"pageNum"`
+	PageSize int         `json:"pageSize"`
+}

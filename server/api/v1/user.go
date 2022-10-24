@@ -41,6 +41,7 @@ func (b *UserApi) Login(c *gin.Context) {
 	return
 }
 
+// GetUserInfo 获取用户个人信息
 func (b *UserApi) GetUserInfo(c *gin.Context) {
 	uuid := utils.GetUserUuid(c)
 	ReqUser, err := userService.GetUserInfo(uuid)
@@ -50,4 +51,31 @@ func (b *UserApi) GetUserInfo(c *gin.Context) {
 		return
 	}
 	response.OkWithDetailed(gin.H{"userInfo": ReqUser}, "获取成功", c)
+}
+
+// GetUserList 分页查询用户列表
+func (b *UserApi) GetUserList(c *gin.Context) {
+	var pageInfo request.PageInfo
+	err := c.ShouldBindJSON(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	err = utils.Verify(pageInfo, utils.PageInfoVerify)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	list, total, err := userService.GetUserInfoList(pageInfo)
+	if err != nil {
+		global.LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+		return
+	}
+	response.OkWithDetailed(response.PageResult{
+		List:     list,
+		Total:    total,
+		PageNum:  pageInfo.PageNum,
+		PageSize: pageInfo.PageSize,
+	}, "获取成功", c)
 }

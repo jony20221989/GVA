@@ -13,6 +13,7 @@ func (s *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	userApi := v1.ApiGroupApp.UserApi
 	{
 		userRouterWithoutRecord.GET("getUserInfo", userApi.GetUserInfo)
+		userRouterWithoutRecord.POST("getUserList", userApi.GetUserList)
 
 	}
 
