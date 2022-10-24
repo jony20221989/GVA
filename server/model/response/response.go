@@ -19,3 +19,11 @@ type LoginResponse struct {
 	Token     string         `json:"token"`
 	ExpiresAt int64          `json:"expiresAt"`
 }
+
+type SysAPIResponse struct {
+	Api entity.SysApi `json:"api"`
+}
+
+type SysAPIListResponse struct {
+	Apis []entity.SysApi `json:"apis"`
+}

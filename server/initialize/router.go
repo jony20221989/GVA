@@ -35,6 +35,7 @@ func InitRouters() *gin.Engine {
 	PrivateGroup := engine.Group("")
 	PrivateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
 	{
+		routerGroup.InitApiRouter(PrivateGroup)
 		routerGroup.InitUserRouter(PrivateGroup)
 	}
 	global.LOG.Info("router register success")

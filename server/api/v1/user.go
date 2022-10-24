@@ -72,10 +72,10 @@ func (b *UserApi) GetUserList(c *gin.Context) {
 		response.FailWithMessage("获取失败", c)
 		return
 	}
-	response.OkWithDetailed(response.PageResult{
+	response.OkWithData(response.PageResult{
 		List:     list,
 		Total:    total,
 		PageNum:  pageInfo.PageNum,
 		PageSize: pageInfo.PageSize,
-	}, "获取成功", c)
+	}, c)
 }

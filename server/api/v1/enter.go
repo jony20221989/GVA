@@ -9,6 +9,7 @@ type ApiGroup struct {
 	DBApi
 	UserApi
 	JwtApi
+	SystemApiApi
 }
 
 var (
@@ -16,4 +17,5 @@ var (
 	userService   = service.ServiceGroupApp.UserService
 	jwtService    = service.ServiceGroupApp.JwtService
 	initDBService = service.ServiceGroupApp.InitDBService
+	apiService    = service.ServiceGroupApp.ApiService
 )

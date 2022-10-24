@@ -6,6 +6,7 @@ type ServiceGroup struct {
 	JwtService
 	InitDBService
 	CasbinService
+	ApiService
 }
 
 var ServiceGroupApp = new(ServiceGroup)
