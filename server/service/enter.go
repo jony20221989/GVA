@@ -8,6 +8,8 @@ type ServiceGroup struct {
 	CasbinService
 	ApiService
 	OperationRecordService
+	MenuService
+	BaseMenuService
 }
 
 var ServiceGroupApp = new(ServiceGroup)
