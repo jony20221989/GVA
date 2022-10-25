@@ -7,6 +7,7 @@ type ServiceGroup struct {
 	InitDBService
 	CasbinService
 	ApiService
+	OperationRecordService
 }
 
 var ServiceGroupApp = new(ServiceGroup)

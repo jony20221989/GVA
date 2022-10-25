@@ -13,7 +13,7 @@ import (
 
 func InitRouters() *gin.Engine {
 	engine := gin.Default()
-	routerGroup := router.RouterGroupApp
+	routerGroupApp := router.RouterGroupApp
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	global.LOG.Info("register swagger handler")
 
@@ -27,16 +27,16 @@ func InitRouters() *gin.Engine {
 	}
 	{
 		// 注册基础功能路由 不做鉴权
-		routerGroup.InitBaseRouter(PublicGroup)
+		routerGroupApp.InitBaseRouter(PublicGroup)
 		// 数据库初始化路由
-		routerGroup.InitDBRouter(PublicGroup)
+		routerGroupApp.InitDBRouter(PublicGroup)
 	}
 
 	PrivateGroup := engine.Group("")
 	PrivateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())
 	{
-		routerGroup.InitApiRouter(PrivateGroup)
-		routerGroup.InitUserRouter(PrivateGroup)
+		routerGroupApp.InitApiRouter(PrivateGroup)
+		routerGroupApp.InitUserRouter(PrivateGroup)
 	}
 	global.LOG.Info("router register success")
 	return engine

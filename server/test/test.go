@@ -1,22 +1,40 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	"time"
+	"os"
+	"sync"
 )
 
-type Result string
+type Instance struct{}
 
-func find(ctx context.Context, query string) (Result, error) {
-	return Result(fmt.Sprintf("result for %q", query)), nil
+var (
+	once     sync.Once
+	instance *Instance
+)
+
+func NewInstance() *Instance {
+	once.Do(func() {
+		instance = &Instance{}
+		fmt.Println("instance")
+
+	})
+	fmt.Println("Outside")
+	return instance
 }
 
 func main() {
-	var a = 86400000000000
+	//for i := 0; i < 3; i++ {
+	//	_ = NewInstance()
+	//}
+	fileName := "D:\\BtSoft\\mysql\\MySQL5.6"
+	dir, err := os.ReadDir(fileName)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	for _, info := range dir {
+		fmt.Println(info.Name())
+	}
 
-	fmt.Println(int64(a))
-	//time.Now().Add(a).Unix()
-
-	fmt.Println(3600 * 24 * time.Duration(1) * time.Second)
 }
