@@ -5,6 +5,7 @@ type RouterGroup struct {
 	InitRouter
 	UserRouter
 	ApiRouter
+	MenuRouter
 }
 
 var RouterGroupApp = new(RouterGroup)

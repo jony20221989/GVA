@@ -37,6 +37,7 @@ func InitRouters() *gin.Engine {
 	{
 		routerGroupApp.InitApiRouter(PrivateGroup)
 		routerGroupApp.InitUserRouter(PrivateGroup)
+		routerGroupApp.InitMenuRouter(PrivateGroup)
 	}
 	global.LOG.Info("router register success")
 	return engine

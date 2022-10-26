@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"sync"
 )
 
@@ -27,14 +26,12 @@ func main() {
 	//for i := 0; i < 3; i++ {
 	//	_ = NewInstance()
 	//}
-	fileName := "D:\\BtSoft\\mysql\\MySQL5.6"
-	dir, err := os.ReadDir(fileName)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	for _, info := range dir {
-		fmt.Println(info.Name())
-	}
+
+	var a int = 1
+	p := &a
+	fmt.Printf("%v\n", a)
+	fmt.Printf("%p\n", &a)
+	fmt.Printf("%p\n", p)
+	fmt.Printf("%p\n", &p)
 
 }

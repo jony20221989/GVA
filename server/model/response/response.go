@@ -27,6 +27,12 @@ type SysAPIResponse struct {
 type SysAPIListResponse struct {
 	Apis []entity.SysApi `json:"apis"`
 }
+
+type ChangePasswordReq struct {
+	ID          uint   `json:"-"`           // 从 JWT 中提取 user id，避免越权
+	Password    string `json:"password"`    // 密码
+	NewPassword string `json:"newPassword"` // 新密码
+}
 type SysAuthorityResponse struct {
 	Authority entity.SysAuthority `json:"authority"`
 }
