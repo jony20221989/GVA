@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-
+    <p>
+      
+    </p>
   </div>
 </template>
 
@@ -10,6 +12,11 @@ import {getCaptcha} from '@/api/base'
 
 export default {
   name: 'App',
+  // data(){
+  //   return{
+  //     tt : process.env.VUE_APP_PORT
+  //   }
+  // },
   created() {
     getCaptcha();
   },

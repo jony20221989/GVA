@@ -14,7 +14,7 @@ import (
 func InitRouters() *gin.Engine {
 	engine := gin.Default()
 	routerGroupApp := router.RouterGroupApp
-	//	engine.Use(middleware.Cors())
+	engine.Use(middleware.Cors())
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	global.LOG.Info("register swagger handler")
 
